@@ -1,18 +1,26 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, Image, Button, TouchableOpacity,Pressable } from 'react-native';
+import { StyleSheet, Text, View,Pressable, Alert } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 
 const Header = (props) => { 
-  const [title, setTitle] = useState('בחירות ישראל 2021');
-  const [buttonText, setButtonText] = useState(props.navigation);
+  const [title] = useState('בחירות ישראל 2021');
+  const [buttonText] = useState(props.navigation);
 
-  const navigatorHandler = () => {
-    if(buttonText === 'Vote'){
-      window.location.replace('/')
-    }else{
-      window.location.replace('/status')
-    }
+  const navigatorHandler = (e) => {
+    try{
+      e.preventDefault();
+      if(buttonText === 'Vote'){
+        Actions.vote()      
+      }else{
+        Actions.status()
+      }
+    } catch(error){
+       Alert.alert('Error', `${error}`,[
+      { text : 'Back'}
+  ]);
   }
+}
 
   return (
     <View style={styles.header}>
@@ -27,16 +35,17 @@ const Header = (props) => {
 
 const styles = StyleSheet.create({
     header: {
+    marginTop: 35,
     height: 65,
     backgroundColor: 'pink',
     borderWidth: 1,
     borderColor: 'red'
   },
   text: {
-    marginTop: 12,
+    marginTop: 15,
     color: '#333',
-    fontSize: 30,
-    fontWeight: 500,
+    fontSize: 22,
+    fontWeight: 'bold',
     textAlign: 'center'
   },
   button: {

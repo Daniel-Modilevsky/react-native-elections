@@ -1,16 +1,16 @@
 import React from 'react';
-import { Route } from 'react-router';
 import StatusPage from './statusPage';
 import VotePage from './votePage';
-
+import { Router, Scene } from 'react-native-router-flux'
 
 const ReactRouter =() =>{ 
     return(
-        <React.Fragment>
-            <Route exact path ="/" component = {VotePage}/>
-            <Route path ="/status" component = {StatusPage}/>
-            {/* <Route path ="/404" component = {ErrorPage}/> */}
-        </React.Fragment>
+        <Router>
+            <Scene key = "root">
+                <Scene key = "vote" component = {VotePage} initial = {true} />
+                <Scene key = "status" component = {StatusPage} />
+            </Scene>
+        </Router>
     )
 }
 
